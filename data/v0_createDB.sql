@@ -27,3 +27,27 @@ CREATE TABLE V0_LesEpreuves
   CONSTRAINT EP_CK3 CHECK (numEp > 0),
   CONSTRAINT EP_CK4 CHECK (nbSportifsEp > 0)
 );
+
+-- Nouvelles tables pour la BD v0
+
+-- Nombre d'inscriptions par épreuve
+CREATE TABLE V0_LesInscriptions (
+  numEp NUMBER(3),
+  numIn NUMBER(3),
+  CONSTRAINT IN_PK PRIMARY KEY (numEp),
+  CONSTRAINT IN_FK1 FOREIGN KEY (numEp) REFERENCES V0_LesEpreuves(numEp),
+  CONSTRAINT IN_CK1 CHECK (numIn >= 0)
+);
+
+-- Médailles par épreuve
+CREATE TABLE V0_LesResultats (
+  numEp NUMBER(3),
+  gold NUMBER(3),
+  silver NUMBER(3),
+  bronze NUMBER(3),
+  CONSTRAINT RE_PK PRIMARY KEY (numEp),
+  CONSTRAINT RE_FK1 FOREIGN KEY (numEp) REFERENCES V0_LesEpreuves(numEp),
+  CONSTRAINT RE_CK1 CHECK (gold >= 0),
+  CONSTRAINT RE_CK2 CHECK (silver >= 0),
+  CONSTRAINT RE_CK3 CHECK (bronze >= 0)
+);
