@@ -32,19 +32,20 @@ CREATE TABLE V0_LesEpreuves
 
 -- Nombre d'inscriptions par épreuve
 CREATE TABLE V0_LesInscriptions (
+  numIn NUMBER(4),
   numEp NUMBER(3),
-  numIn NUMBER(3),
-  CONSTRAINT IN_PK PRIMARY KEY (numEp),
+  CONSTRAINT IN_PK PRIMARY KEY (numIn),
   CONSTRAINT IN_FK1 FOREIGN KEY (numEp) REFERENCES V0_LesEpreuves(numEp),
-  CONSTRAINT IN_CK1 CHECK (numIn >= 0)
+  CONSTRAINT IN_CK1 CHECK (numIn > 0),
+  CONSTRAINT IN_CK2 CHECK (numEp > 0)
 );
 
 -- Médailles par épreuve
 CREATE TABLE V0_LesResultats (
   numEp NUMBER(3),
-  gold NUMBER(3),
-  silver NUMBER(3),
-  bronze NUMBER(3),
+  gold NUMBER(4),
+  silver NUMBER(4),
+  bronze NUMBER(4),
   CONSTRAINT RE_PK PRIMARY KEY (numEp),
   CONSTRAINT RE_FK1 FOREIGN KEY (numEp) REFERENCES V0_LesEpreuves(numEp),
   CONSTRAINT RE_CK1 CHECK (gold >= 0),
